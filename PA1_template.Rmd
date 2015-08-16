@@ -34,15 +34,16 @@ head(totalnumber)
 ```{r}
 hist(totalnumber$`steps total`, breaks = 100, main = "Histogram of total number of steps per day", xlab = "total number of steps")
 ```
+![](images/plot1.png?raw=true)
 
-###Calculate and report the mean and median of the total number of steps taken per day
+#Calculate and report the mean and median of the total number of steps taken per day
 
 ```{r}
 mean <- data.frame(tapply(activitydata$steps, activitydata$date, mean))
 colnames(mean) <- c("steps mean")
 barplot(mean$`steps mean`, xlab = "date", ylab = "mean of the number of steps", main = "Mean of the total number of steps per day")
 ```
-
+![](images/plot2.png?raw=true)
 
 
 
