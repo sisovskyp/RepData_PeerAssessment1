@@ -23,21 +23,26 @@ barplot(mean$`steps mean`, xlab = "date", ylab = "mean of the number of steps", 
 dev.off()
 
 ## median per day
-median <- data.frame(tapply(activitydata$steps, activitydata$date, FUN = (median, na.rm = FALSE)))
+median <- data.frame(tapply(activitydata$steps, activitydata$date, median, na.rm = TRUE))
 colnames(median) <- c("steps median")
-barplot(median$`steps median`)
+png(file = "plot3.png")
+barplot(median$`steps median`, xlab = "date", ylab = "median of the number of steps", main = "Median of the total number of steps per day")
+dev.off()
 
 ## What is the average daily activity pattern?
+dailypattern <- data.frame(tapply(activitydata$steps, activitydata$interval, mean, na.rm = TRUE))
+colnames(dailypattern) <- c("steps mean")
+intervals <- unique(activitydata$interval)
+dailypattern <- cbind(dailypattern, intervals)
+png(file = "plot4.png")
+plot(dailypattern$intervals, dailypattern$`steps mean`, type = "l",xlab = "interval", ylab = "mean of the number of steps", main = "Average daily activity pattern")
+dev.off()
 
-mutate(activitydata, average = )
-
-
-plot(activitydata$interval, activitydata$ steps, type = "l")
 
 
 ?median
-
-
+?aggregate
+?with
 ?hist
 ?by
 library(dplyr)

@@ -1,7 +1,7 @@
 ---
-title: "reproducible research"
-author: "peter sisovsky"
-date: "16. augusta 2015"
+title: "Reproducible Research Assignment 1"
+author: "author"
+date: "16th august 2015"
 output: html_document
 ---
 
@@ -32,18 +32,45 @@ head(totalnumber)
 ### Make a histogram of the total number of steps taken each day
 
 ```{r}
+png(file = "plot1.png")
 hist(totalnumber$`steps total`, breaks = 100, main = "Histogram of total number of steps per day", xlab = "total number of steps")
+dev.off()
 ```
 ![](images/plot1.png?raw=true)
 
-#Calculate and report the mean and median of the total number of steps taken per day
-
+##Calculate and report the mean and median of the total number of steps taken per day
+###Mean
 ```{r}
 mean <- data.frame(tapply(activitydata$steps, activitydata$date, mean))
 colnames(mean) <- c("steps mean")
+png(file = "plot2.png")
 barplot(mean$`steps mean`, xlab = "date", ylab = "mean of the number of steps", main = "Mean of the total number of steps per day")
+dev.off()
 ```
 ![](images/plot2.png?raw=true)
 
+###Median
+```{r}
+median <- data.frame(tapply(activitydata$steps, activitydata$date, median, na.rm = TRUE))
+colnames(median) <- c("steps median")
+png(file = "plot3.png")
+barplot(median$`steps median`, xlab = "date", ylab = "median of the number of steps", main = "Median of the total number of steps per day")
+dev.off()
+```
+![](images/plot3.png?raw=true)
+
+## What is the average daily activity pattern?
+
+
+```{r}
+dailypattern <- data.frame(tapply(activitydata$steps, activitydata$interval, mean, na.rm = TRUE))
+colnames(dailypattern) <- c("steps mean")
+intervals <- unique(activitydata$interval)
+dailypattern <- cbind(dailypattern, intervals)
+png(file = "plot4.png")
+plot(dailypattern$intervals, dailypattern$`steps mean`, type = "l",xlab = "interval", ylab = "mean of the number of steps", main = "Average daily activity pattern")
+dev.off()
+```
+![](images/plot4.png?raw=true)
 
 
