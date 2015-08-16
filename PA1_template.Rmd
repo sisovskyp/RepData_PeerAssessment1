@@ -1,25 +1,48 @@
 ---
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
+title: "reproducible research"
+author: "peter sisovsky"
+date: "16. augusta 2015"
+output: html_document
 ---
 
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-## Loading and preprocessing the data
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+##Loading and preprocessing the data
+
+```{r}
+unzip ("repdata-data-activity.zip")
+activitydata <- read.csv("activity.csv", header = TRUE)
+head(activitydata)
+tail(activitydata)
+str(activitydata)
+```
+
+##What is mean total number of steps taken per day?
+
+###Calculate the total number of steps taken per day
+
+```{r}
+totalnumber <- data.frame(tapply(activitydata$steps, activitydata$date, sum))
+colnames(totalnumber) <- c("steps total")
+head(totalnumber)
+```
+
+### Make a histogram of the total number of steps taken each day
+
+```{r}
+hist(totalnumber$`steps total`, breaks = 100, main = "Histogram of total number of steps per day", xlab = "total number of steps")
+```
+
+###Calculate and report the mean and median of the total number of steps taken per day
+
+```{r}
+mean <- data.frame(tapply(activitydata$steps, activitydata$date, mean))
+colnames(mean) <- c("steps mean")
+barplot(mean$`steps mean`, xlab = "date", ylab = "mean of the number of steps", main = "Mean of the total number of steps per day")
+```
 
 
 
-## What is mean total number of steps taken per day?
 
-
-
-## What is the average daily activity pattern?
-
-
-
-## Imputing missing values
-
-
-
-## Are there differences in activity patterns between weekdays and weekends?
